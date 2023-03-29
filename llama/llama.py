@@ -58,8 +58,8 @@ def _load(
     return generator
 
 def generate(prompts: List[str]):
-    ckpt_dir = '/home/ubuntu/aqueduct/src/dockerfiles/llama/7B/'
-    tokenizer_path = '/home/ubuntu/aqueduct/src/dockerfiles/llama/tokenizer.model'
+    ckpt_dir = '/7B/'
+    tokenizer_path = '/tokenizer.model'
     temperature = 0.8
     top_p = 0.95
     max_seq_len = 512
@@ -76,7 +76,5 @@ def generate(prompts: List[str]):
     results = generator.generate(
         prompts, max_gen_len=256, temperature=temperature, top_p=top_p
     )
-
-    for result in results:
-        print(result)
-        print("\n==================================\n")
+    
+    return results
