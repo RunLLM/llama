@@ -79,7 +79,7 @@ def generate(prompts: List[str]):
         # Generate results for each full batch of prompts
         prompt_batch = prompts[i * max_batch_size:(i + 1) * max_batch_size]
         prompt_results = generator.generate(
-            prompt_batch, max_gen_len=32, temperature=temperature, top_p=top_p
+            prompt_batch, max_gen_len=50, temperature=temperature, top_p=top_p
         )
         results += prompt_results
 
@@ -88,7 +88,7 @@ def generate(prompts: List[str]):
         print("Inference iteration", len(prompts) // max_batch_size + 1)
         prompt_batch = prompts[(len(prompts) // max_batch_size) * max_batch_size:]
         prompt_results = generator.generate(
-            prompt_batch, max_gen_len=32, temperature=temperature, top_p=top_p
+            prompt_batch, max_gen_len=50, temperature=temperature, top_p=top_p
         )
         results += prompt_results
     
