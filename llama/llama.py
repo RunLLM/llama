@@ -62,8 +62,8 @@ def generate(prompts: List[str]):
     tokenizer_path = '/tokenizer.model'
     temperature = 0.8
     top_p = 0.95
-    max_seq_len = 512
-    max_batch_size = 8
+    max_seq_len = 256
+    max_batch_size = 16
 
     local_rank, world_size = _setup_model_parallel()
     if local_rank > 0:
