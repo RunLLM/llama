@@ -73,8 +73,21 @@ def generate(prompts: List[str]):
         ckpt_dir, tokenizer_path, local_rank, world_size, max_seq_len, max_batch_size
     )
 
-    results = generator.generate(
-        prompts, max_gen_len=256, temperature=temperature, top_p=top_p
-    )
+    results = []
+    for i in range(0, len(prompts) // max_batch_size):
+        # Generate results for each full batch of prompts
+        prompt_batch = prompts[i * max_batch_size:(i + 1) * max_batch_size]
+        prompt_results = generator.generate(
+            prompt_batch, max_gen_len=128, temperature=temperature, top_p=top_p
+        )
+        results += prompt_results
+
+    # Generate results for the remaining prompts (if any)
+    if len(prompts) % max_batch_size != 0:
+        prompt_batch = prompts[(len(prompts) // max_batch_size) * max_batch_size:]
+        prompt_results = generator.generate(
+            prompt_batch, max_gen_len=128, temperature=temperature, top_p=top_p
+        )
+        results += prompt_results
     
     return results
